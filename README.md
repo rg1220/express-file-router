@@ -5,11 +5,31 @@
 
 Node.js file-based routing middleware for express.
 
-### How to use
+## How to use
 
 This example shows how you can load a full directory of
 method-named files to add to an express router. The router
-keeps the folder path to each file.
+creates a new router for each folder thus it routes to each
+file as you would expect.
+
+Assume you have a folder named `endpoints` with this structure:
+```
+.
+├── api
+│   ├── get.js
+│   ├── router.js
+│   └── v1
+│       ├── cars
+│       │   ├── :id*
+│       │   │   └── get.js
+│       │   ├── get.js
+│       │   └── post.js
+│       └── get.js
+├── get.js
+└── post.js
+```
+
+You would simple add the express-file-router middleware:
 
 ```js
 var express = require('express')
@@ -21,25 +41,10 @@ var app = express()
 app.use(fileRouter.load(path.join(__dirname, 'endpoints')));
 ```
 
-##
-
-```
-└── routes
-    ├── api
-    │   ├── get.js
-    │   ├── router.js
-    │   └── v1
-    │       ├── get.js
-    │       └── test
-    │           ├── get.js
-    │           └── post.js
-    ├── get.js
-    └── post.js
-```
 
 ## Method Files
 
-# [method].js
+### [method].js
 
 Any method function that express router provides.
 
@@ -47,12 +52,12 @@ Example: `get.js`
 ```js
 module.exports = function(req, res, next) {
     res.json({
-        message: 'This is the response'
+        message: 'This is the response to a GET request'
     });
 }
 ```
 
-# router.js
+### router.js
 
 A router is passed in to set any necessary middleware.
 
