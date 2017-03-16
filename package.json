@@ -1,11 +1,11 @@
 {
-  "name": "file-router",
+  "name": "express-file-router",
   "version": "0.0.1",
   "description": "File-based router for express",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "ssh://rg1220.github.com/rg1220/file-router"
+    "url": "ssh://rg1220.github.com/rg1220/express-file-router"
   },
   "author": "randy@randygroff.com",
   "license": "MIT",

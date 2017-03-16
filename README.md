@@ -1,4 +1,4 @@
-# file-router
+# express-file-router
 
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
@@ -13,7 +13,7 @@ keeps the folder path to each file.
 
 ```js
 var express = require('express')
-var fileRouter = require('file-router')
+var fileRouter = require('express-file-router')
 
 var app = express()
 
@@ -69,7 +69,7 @@ module.exports = function(router) {
 
 [MIT](LICENSE)
 
-[npm-image]: https://img.shields.io/npm/v/file-router.svg
-[npm-url]: https://npmjs.org/package/file-router
-[downloads-image]: https://img.shields.io/npm/dm/file-router.svg
-[downloads-url]: https://npmjs.org/package/file-router
+[npm-image]: https://img.shields.io/npm/v/express-file-router.svg
+[npm-url]: https://npmjs.org/package/express-file-router
+[downloads-image]: https://img.shields.io/npm/dm/express-file-router.svg
+[downloads-url]: https://npmjs.org/package/express-file-router
