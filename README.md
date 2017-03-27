@@ -41,12 +41,6 @@ var app = express()
 app.use(fileRouter.load(path.join(__dirname, 'endpoints')));
 ```
 
-#### load( directory, options )
-```javascript
-rabbit.onUnhandled( function( message ) {
-	 // handle the message here
-} );
-```
 ### load ( directory, options )
 
 The call returns a router that will auto-load a directory of routes.
