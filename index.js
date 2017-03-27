@@ -5,6 +5,7 @@ var Request = require('./request');
 var Response = require('./response');
 
 function LoadFolder(folder, options) {
+  options = options || {};
   var router = Router({ mergeParams : true });
   var folderFiles = fs.readdirSync(folder);
 

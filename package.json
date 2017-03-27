@@ -1,6 +1,6 @@
 {
   "name": "express-file-router",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "File-based router for express",
   "main": "index.js",
   "repository": {
