@@ -1,8 +1,10 @@
 var path = require('path');
 var fs = require('fs');
 var Router = require('express').Router;
+var Request = require('./request');
+var Response = require('./response');
 
-function LoadFolder(folder) {
+function LoadFolder(folder, options) {
   var router = Router({ mergeParams : true });
   var folderFiles = fs.readdirSync(folder);
 
@@ -26,7 +28,30 @@ function LoadFolder(folder) {
 
   files.forEach(function(file) {
     var method = file.replace('.js', '').toLowerCase();
-    router[method]('/', require(path.join(folder, file)));
+
+    if (options.usePromise) {
+      router[method]('/', function(req, res, next) {
+        var request = new Request({
+          method: req.method,
+          params: req.params,
+          path: req.path,
+          query: req.query,
+          body: req.body,
+          headers: req.headers,
+          cookies: req.cookies
+        });
+
+        require(path.join(folder, file))(request)
+          .then(function(response) {
+            res.status(response.responseCode).json(response.data);
+          })
+          .catch(function(err) {
+            next(err);
+          });
+      });
+    } else {
+      router[method]('/', require(path.join(folder, file)));
+    }
   });
 
   var normalFolders = [];
@@ -41,10 +66,12 @@ function LoadFolder(folder) {
   });
 
   normalFolders.concat(paramFolders).forEach(function(file) {
-    router.use('/' + file, LoadFolder(path.join(folder, file)));
+    router.use('/' + file, LoadFolder(path.join(folder, file), options));
   });
 
   return router;
 }
 
 module.exports.load = LoadFolder;
+module.exports.Request = Request;
+module.exports.Response = Response;

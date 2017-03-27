@@ -41,6 +41,18 @@ var app = express()
 app.use(fileRouter.load(path.join(__dirname, 'endpoints')));
 ```
 
+#### load( directory, options )
+```javascript
+rabbit.onUnhandled( function( message ) {
+	 // handle the message here
+} );
+```
+### load ( directory, options )
+
+The call returns a router that will auto-load a directory of routes.
+
+Options can contain the following:
+ * `usePromise` - true|false Method files must return a promise that resolves a Response object
 
 ## Method Files
 
@@ -53,6 +65,20 @@ Example: `get.js`
 module.exports = function(req, res, next) {
     res.json({
         message: 'This is the response to a GET request'
+    });
+}
+```
+
+If `usePromise: true` then use a promise instead:
+```js
+var Promise = require('bluebird');
+var Response = require('express-file-router').Response;
+
+module.exports = function(request) {
+    return Promise.try(function() {
+        return new Response(200, {
+            message: 'This is the response to a GET request'
+        })
     });
 }
 ```
