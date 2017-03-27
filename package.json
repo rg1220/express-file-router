@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "ssh://rg1220.github.com/rg1220/express-file-router"
+    "url": "https://github.com/rg1220/express-file-router"
   },
   "author": "randy@randygroff.com",
   "license": "MIT",
