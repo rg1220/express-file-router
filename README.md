@@ -20,8 +20,9 @@ Assume you have a folder named `endpoints` with this structure:
 │   ├── router.js
 │   └── v1
 │       ├── cars
-│       │   ├── :id*
-│       │   │   └── get.js
+│       │   ├── id
+│       │   │   ├── get.js
+│       │   │   └── route.js
 │       │   ├── get.js
 │       │   └── post.js
 │       └── get.js
@@ -87,6 +88,21 @@ Example: `router.js`
 ```js
 module.exports = function(router) {
     return router.use(bodyParser.json());
+}
+```
+
+### route.js
+
+Return a route string which replaces the folder name.
+
+Note that on linux filesystems, colon and other characters are allowed. Thus you don't necessarily need a `route.js`
+file to specify a route with a parameter. However, it's still recommended to use a colon since Windows does not allow
+special characters in file names.
+
+Example: `route.js`
+```js
+module.exports = function() {
+    return ':someparam';
 }
 ```
 
