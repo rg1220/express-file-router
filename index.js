@@ -15,6 +15,11 @@ function LoadFolder(folder, options) {
     folderFiles.splice(routerIndex, 1);
   }
 
+  var routeIndex = folderFiles.indexOf('route.js');
+  if (routeIndex !== -1) {
+    folderFiles.splice(routeIndex, 1);
+  }
+
   var files = [];
   var folders = [];
 
@@ -67,7 +72,17 @@ function LoadFolder(folder, options) {
   });
 
   normalFolders.concat(paramFolders).forEach(function(file) {
-    router.use('/' + file, LoadFolder(path.join(folder, file), options));
+    var routeIndex = folderFiles.indexOf(path.join(path.join(folder, file), 'route.js'));
+    if (routeIndex !== -1) {
+      folderFiles.splice(routeIndex, 1);
+    }
+
+    var route = file;
+    if (fs.existsSync(path.join(path.join(folder, file), 'route.js'))) {
+      route = require(path.join(path.join(folder, file), 'route.js'))();
+    }
+
+    router.use('/' + route, LoadFolder(path.join(folder, file), options));
   });
 
   return router;
